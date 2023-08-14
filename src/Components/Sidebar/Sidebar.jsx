@@ -1,5 +1,7 @@
+import {TargetProfile} from '../ProfileInfo/TargetProfile';
+
 export const Sidebar = () => {
   return(
-    <div>Sidebar</div>
+    <div><TargetProfile /></div>
   )
 }

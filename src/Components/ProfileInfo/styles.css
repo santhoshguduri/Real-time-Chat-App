@@ -38,10 +38,25 @@
   align-items: center;
   margin-bottom: 8px;
 }
+
+.targetProfileNameWrapper{
+  text-align: left;
+  width: 100%;
+}
+
 .profileRole{
   font-size: 14px;
   margin-bottom: 8px;
 }
+
+.targerProfileInfo{
+  margin-left: 4px;
+  font-size: small;
+  margin-bottom: 0px !important;
+  margin-left: 4px;
+  color: rgb(113, 113, 113);
+}
+
 .profileInfoWrapper img{
   width: 70px;
   height: 70px;
