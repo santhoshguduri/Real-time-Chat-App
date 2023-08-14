@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 // import Img from "../img/img.png";
-import AttachFileIcon from '@mui/icons-material/AttachFileOutlined';
+import AttachFileIcon from "@mui/icons-material/AttachFileOutlined";
+import SendIcon from "@mui/icons-material/Send";
 import { AuthContext } from "../../Context/AuthContext";
 import { ChatContext } from "../../Context/ChatContext";
 import {
@@ -13,6 +14,7 @@ import {
 import { db, storage } from "../../firebase";
 import { v4 as uuid } from "uuid";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
+import InputEmoji from "react-input-emoji";
 
 export const ChatInput = () => {
   const [text, setText] = useState("");
@@ -75,14 +77,16 @@ export const ChatInput = () => {
   };
   return (
     <div className="input">
-      <input
-        type="text"
-        placeholder="Type something..."
-        onChange={(e) => setText(e.target.value)}
+      <AttachFileIcon />
+      <InputEmoji
         value={text}
+        onChange={(e) => setText(e)}
+        cleanOnEnter
+        placeholder="Enter your message here"
+        onEnter={handleSend}
+        borderRadius="4px"
       />
       <div className="send">
-        <AttachFileIcon />
         <input
           type="file"
           style={{ display: "none" }}
@@ -92,7 +96,10 @@ export const ChatInput = () => {
         {/* <label htmlFor="file">
           <img src={Img} alt="" />
         </label> */}
-        <button onClick={handleSend}>Send</button>
+        <button disabled={!text} className={`sendBtn ${!text && 'disabledBtn'}`} onClick={handleSend}>
+          <div>Send</div>
+          <SendIcon sx={{ marginLeft: "2px" }} fontSize="small" />
+        </button>
       </div>
     </div>
   );

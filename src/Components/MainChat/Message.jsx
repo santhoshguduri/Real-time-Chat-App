@@ -39,11 +39,11 @@ export const Message = ({ message }) => {
           }
           alt=""
         />
-        <span>{messageTime}</span>
       </div>
       <div className="messageContent">
         <p>{message.text}</p>
         {message.img && <img src={message.img} alt="" />}
+        <span>{messageTime}</span>
       </div>
     </div>
   );
