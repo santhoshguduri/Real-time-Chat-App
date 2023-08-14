@@ -1,0 +1,43 @@
+.loginWrapper{
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  background-color: #e2e4e700;
+  padding: 24px;
+  border-radius: 8px;
+  border: 1px solid #bcbec1;
+  text-align: center;
+}
+
+.firstNameWrapper, .lastNameWrapper, .emailWrapper{
+  padding: 8px;
+}
+
+.loaginHeader{
+  margin-bottom: 16px;
+  color: #1976d2;
+  font-weight: 600;
+  font-size: 18px;
+}
+.fileUploadButton{
+  display: flex;
+  align-items: center;
+  border: 2px solid #B7B7B7;
+  color: black;
+   /* #B7B7B7; */
+  border-radius: 8px;
+  width: fit-content;
+  padding: 4px 8px;
+  cursor: pointer;
+}
+
+.fileUploadButton label{
+  margin-left: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+}
+.fileInputDisabled{
+  pointer-events: none;
+  
+}

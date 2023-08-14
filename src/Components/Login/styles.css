@@ -1,0 +1,24 @@
+.loginWrapper{
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+  background-color: #e2e4e700;
+  padding: 24px;
+  border-radius: 8px;
+  border: 1px solid #bcbec1;
+}
+
+.emailWrapper{
+  padding: 8px;
+}
+
+.loaginHeader{
+  margin-bottom: 16px;
+  color: #1976d2;
+  font-weight: 600;
+  font-size: 18px;
+}
+.loginError{
+  color: red;
+  font-size: 14px;
+}
