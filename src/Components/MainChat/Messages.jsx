@@ -4,7 +4,7 @@ import { ChatContext } from "../../Context/ChatContext";
 import { db } from "../../firebase";
 import {Message} from "./Message";
 
-export const Messages = () => {
+export const Messages = (props) => {
   const [messages, setMessages] = useState([]);
   const { data } = useContext(ChatContext);
 
@@ -21,7 +21,7 @@ export const Messages = () => {
   console.log(messages)
 
   return (
-    <div className="messages">
+    <div className={`messages ${props.hide && 'reduceContHeight'}`}>
       {messages.map((m) => (
         <Message message={m} key={m.id} />
       ))}

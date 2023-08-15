@@ -79,6 +79,10 @@
   border-radius: 8px;
 }
 
+.reduceContHeight {
+  height: calc(100vh - 160px) !important;
+}
+
 .message {
   display: flex;
   gap: 10px;
@@ -145,4 +149,15 @@
   justify-content: center;
   font-size: large;
   font-weight: 500;
+}
+.backNavigationBtn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: #0f4cff;
+  color: white;
+  padding: 8px 0px;
+  border-radius: 8px;
+  cursor: pointer;
 }

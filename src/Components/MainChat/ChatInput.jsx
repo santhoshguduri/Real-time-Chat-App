@@ -82,7 +82,7 @@ export const ChatInput = () => {
         value={text}
         onChange={(e) => setText(e)}
         cleanOnEnter
-        placeholder="Enter your message here"
+        placeholder="Enter message here"
         onEnter={handleSend}
         borderRadius="4px"
       />
