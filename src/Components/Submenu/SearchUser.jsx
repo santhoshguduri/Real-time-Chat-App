@@ -12,9 +12,9 @@ import {
 } from "firebase/firestore";
 import { db } from "../../firebase";
 import { AuthContext } from "../../Context/AuthContext";
-import Menu from '@mui/material/Menu';
-import MenuItem from '@mui/material/MenuItem';
-import './styles.css';
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import "./styles.css";
 
 export const SearchUser = () => {
   const [username, setUsername] = useState("");
@@ -30,7 +30,7 @@ export const SearchUser = () => {
   };
   const handleClose = () => {
     setAnchorEl(null);
-  }
+  };
 
   const handleSearch = async () => {
     const q = query(
@@ -49,7 +49,7 @@ export const SearchUser = () => {
   };
 
   const handleKey = (e) => {
-    if(e.code === "Enter"){
+    if (e.code === "Enter") {
       handleClick(e);
       handleSearch();
     }
@@ -71,6 +71,7 @@ export const SearchUser = () => {
             uid: user.uid,
             displayName: user.displayName,
             photoURL: user.photoURL,
+            email: user.email,
           },
           [combinedId + ".date"]: serverTimestamp(),
         });
@@ -87,7 +88,7 @@ export const SearchUser = () => {
     } catch (err) {}
 
     setUser(null);
-    setUsername("")
+    setUsername("");
   };
 
   return (
@@ -100,24 +101,26 @@ export const SearchUser = () => {
           onChange={(e) => setUsername(e.target.value)}
           value={username}
         />
-        {user && <Menu
-          id="basic-menu"
-          anchorEl={anchorEl}
-          open={open}
-          onClose={handleClose}
-          MenuListProps={{
-            'aria-labelledby': 'basic-button',
-          }}
-        >
-          <MenuItem onClick={handleSelect}>
-            <div className="userChat">
-              <img src={user.photoURL} alt="" />
-              <div className="userChatInfo">
-                <span>{user.displayName}</span>
+        {user && (
+          <Menu
+            id="basic-menu"
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
+            MenuListProps={{
+              "aria-labelledby": "basic-button",
+            }}
+          >
+            <MenuItem onClick={handleSelect}>
+              <div className="userChat">
+                <img src={user.photoURL} alt="" />
+                <div className="userChatInfo">
+                  <span>{user.displayName}</span>
+                </div>
               </div>
-            </div>
-          </MenuItem>
-        </Menu>}
+            </MenuItem>
+          </Menu>
+        )}
       </div>
       {err && <span>User not found!</span>}
       {/* {user && (

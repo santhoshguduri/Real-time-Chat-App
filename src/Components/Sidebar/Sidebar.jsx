@@ -1,6 +1,8 @@
 import { TargetProfile } from "../ProfileInfo/TargetProfile";
 import { Chart } from "react-google-charts";
 import { AnalyticCard } from "./AnalyticCard";
+import Button from "@mui/material/Button";
+import InsertLinkOutlinedIcon from "@mui/icons-material/InsertLinkOutlined";
 import "./styles.css";
 
 export const Sidebar = () => {
@@ -51,9 +53,25 @@ export const Sidebar = () => {
         <Chart
           chartType="ColumnChart"
           width="100%"
-          height="200px"
+          height="180px"
           data={data}
         />
+      </div>
+      <div className="inviteWrapper">
+        <div>Onboard Clients</div>
+        <Button
+          variant="contained"
+          sx={{
+            // padding: "6px 30px",
+            color: "white",
+            backgroundColor: "#0f4cff",
+            fontSize: "small",
+            textTransform: "none",
+          }}
+        >
+          Copy link
+          <InsertLinkOutlinedIcon fontSize="small" sx={{ marginLeft: "4px" }} />
+        </Button>
       </div>
     </>
   );

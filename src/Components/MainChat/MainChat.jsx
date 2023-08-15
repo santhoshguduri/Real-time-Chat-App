@@ -2,25 +2,42 @@ import React, { useContext, useEffect } from "react";
 import { Messages } from "./Messages";
 import { ChatInput } from "./ChatInput";
 import { ChatContext } from "../../Context/ChatContext";
+import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import "./styles.css";
 
-export const MainChat = () => {
-  const { data } = useContext(ChatContext);
+export const MainChat = (props) => {
+  const { data, dispatch } = useContext(ChatContext);
 
   // useEffect(()=>{
 
   // },[data])
 
   return (
-    <div className="chat">
-      {data.chatId!=='null' ? (
-        <>
-          <Messages />
-          <ChatInput />
-        </>
-      ) : (
-        <div className="emptyStateConversation">Select a chat to start conversation</div>
+    <>
+      {props.hide && (
+        <div
+          className="backNavigationBtn"
+          onClick={() => dispatch({ type: "SET_DEFAULT" })}
+        >
+          <KeyboardBackspaceIcon
+            sx={{ marginRight: "16px" }}
+            fontSize="small"
+          />
+          Chats
+        </div>
       )}
-    </div>
+      <div className="chat">
+        {data.chatId !== "null" ? (
+          <>
+            <Messages hide={props.hide} />
+            <ChatInput />
+          </>
+        ) : (
+          <div className="emptyStateConversation">
+            Select a chat to start conversation
+          </div>
+        )}
+      </div>
+    </>
   );
 };
