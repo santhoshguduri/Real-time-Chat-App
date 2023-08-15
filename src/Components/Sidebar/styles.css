@@ -1,0 +1,30 @@
+.chartHeader {
+  text-align: center;
+  font-size: small;
+}
+.analyticsContainer {
+  padding: 12px;
+  background-color: #f9fafd;
+  margin: 12px;
+  border-radius: 8px;
+  border: 1px solid #e1e1e1;
+}
+.AnalyticCardWrapper {
+  display: flex;
+  gap: 10px;
+  padding: 12px 8px;
+  border-radius: 8px;
+}
+.primaryAnalytic {
+  font-size: smaller;
+  font-weight: 500;
+}
+.secondaryAnalytic {
+  font-size: x-small;
+}
+.analyticWrapper {
+  display: grid;
+  grid-template-columns: auto auto;
+  margin: 12px;
+  gap: 12px;
+}

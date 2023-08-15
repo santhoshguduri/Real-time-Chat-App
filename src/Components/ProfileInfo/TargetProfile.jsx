@@ -20,7 +20,7 @@ export const TargetProfile = () => {
 
   return (
     <div className="profileContainer">
-      <div className="profileInfoWrapper">
+      <div className="profileInfoWrapper targetInfoWrapper">
         <img src={currentUser.photoURL} alt="profileImage" />
         <div className="profileUsernameWrapper targetProfileNameWrapper">
           <MailOutlineIcon fontSize="small" /><div className="profileRole targerProfileInfo">{currentUser.email}</div>

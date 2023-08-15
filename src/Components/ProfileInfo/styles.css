@@ -1,24 +1,25 @@
-.profileContainer{
-  margin: 12px;
+.profileContainer {
+  margin: 0px 12px;
 }
-.profileHeader{
+.profileHeader {
   display: flex;
   align-items: center;
 }
-.appIconWrapper{
+.appIconWrapper {
   background-color: #d3dffe;
   color: #0e41da;
   display: flex;
   padding: 4px;
   border-radius: 50%;
 }
-.appNameWrapper{
+.appNameWrapper {
   font-weight: 600;
   font-size: 24;
   margin-left: 8px;
-  font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
-.profileInfoWrapper{
+.profileInfoWrapper {
   background-color: #f6f8fc;
   border: 1px solid #d9d9da;
   border-radius: 8px;
@@ -28,28 +29,31 @@
   align-items: center;
   margin-top: 24px;
 }
-.profileUsername{
+.targetInfoWrapper {
+  margin-top: 0px !important;
+}
+.profileUsername {
   font-size: 18px;
   font-weight: 600;
   margin-right: 8px;
 }
-.profileUsernameWrapper{
+.profileUsernameWrapper {
   display: flex;
   align-items: center;
   margin-bottom: 8px;
 }
 
-.targetProfileNameWrapper{
+.targetProfileNameWrapper {
   text-align: left;
   width: 100%;
 }
 
-.profileRole{
+.profileRole {
   font-size: 14px;
   margin-bottom: 8px;
 }
 
-.targerProfileInfo{
+.targerProfileInfo {
   margin-left: 4px;
   font-size: small;
   margin-bottom: 0px !important;
@@ -57,17 +61,17 @@
   color: rgb(113, 113, 113);
 }
 
-.profileInfoWrapper img{
+.profileInfoWrapper img {
   width: 70px;
   height: 70px;
   border-radius: 50%;
   object-fit: cover;
   margin-bottom: 8px;
 }
-.profileContainer>div{
+.profileContainer > div {
   margin-bottom: 8px;
 }
-.statusWrapper{
+.statusWrapper {
   display: flex;
   align-items: center;
   width: 75px;
