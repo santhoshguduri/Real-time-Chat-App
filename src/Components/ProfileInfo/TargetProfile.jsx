@@ -4,18 +4,27 @@ import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
 import Inventory2OutlinedIcon from "@mui/icons-material/Inventory2Outlined";
 import { ChatContext } from "../../Context/ChatContext";
+import { AuthContext } from "../../Context/AuthContext";
 import Button from "@mui/material/Button";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "../../firebase";
 import "./styles.css";
 
-export const TargetProfile = () => {
+const TargetProfile = () => {
   const { data } = useContext(ChatContext);
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
+  const { currentUser } = useContext(AuthContext);
+  const [archived, setArchived] = React.useState(data.archive);
+
+  React.useEffect(() => {
+    setArchived(data.archive);
+  }, [data.archive]);
+
+  const handleArchive = () => {
+    updateDoc(doc(db, "userChats", currentUser.uid), {
+      [data.chatId + ".archive"]: !archived,
+    }).then((res) => {
+      setArchived(!archived);
+    });
   };
 
   return (
@@ -23,22 +32,23 @@ export const TargetProfile = () => {
       <div className="profileInfoWrapper targetInfoWrapper">
         {data.chatId !== "null" ? (
           <>
-            <img src={data.user.photoURL} alt="profileImage" />
+            <img src={data.userInfo.photoURL} alt="profileImage" />
             <div className="profileUsernameWrapper targetProfileNameWrapper">
               <MailOutlineIcon fontSize="small" />
               <div className="profileRole targerProfileInfo">
-                {data.user.email}
+                {data.userInfo.email}
               </div>
             </div>
             <div className="profileUsernameWrapper targetProfileNameWrapper">
               <AccountCircleOutlinedIcon fontSize="small" />
               <div className="profileRole targerProfileInfo">
-                {data.user.displayName}
+                {data.userInfo.displayName}
               </div>
             </div>
-            <div className="statusWrapper">
+            <div className="archiveWrapper">
               <Button
                 variant="outlined"
+                onClick={() => handleArchive()}
                 sx={{
                   // padding: "6px 30px",
                   color: "#0f4cff",
@@ -46,12 +56,14 @@ export const TargetProfile = () => {
                   textTransform: "none",
                   borderColor: "#0f4cff",
                 }}
+                endIcon={
+                  <Inventory2OutlinedIcon
+                    fontSize="small"
+                    sx={{ marginLeft: "4px" }}
+                  />
+                }
               >
-                Archive
-                <Inventory2OutlinedIcon
-                  fontSize="small"
-                  sx={{ marginLeft: "4px" }}
-                />
+                {archived ? "Unarchive" : "Archive"}
               </Button>
             </div>
           </>
@@ -62,3 +74,4 @@ export const TargetProfile = () => {
     </div>
   );
 };
+export default React.memo(TargetProfile);

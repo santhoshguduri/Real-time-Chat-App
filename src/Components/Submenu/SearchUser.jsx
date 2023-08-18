@@ -56,10 +56,8 @@ export const SearchUser = () => {
   };
 
   const handleSelect = async () => {
-    const combinedId =
-      currentUser.uid > user.uid
-        ? currentUser.uid + user.uid
-        : user.uid + currentUser.uid;
+    const combinedId = currentUser.uid + user.uid;
+    const targetCombinedId = user.uid + currentUser.uid;
     try {
       const res = await getDoc(doc(db, "chats", combinedId));
 
@@ -77,12 +75,13 @@ export const SearchUser = () => {
         });
 
         await updateDoc(doc(db, "userChats", user.uid), {
-          [combinedId + ".userInfo"]: {
+          [targetCombinedId + ".userInfo"]: {
             uid: currentUser.uid,
             displayName: currentUser.displayName,
             photoURL: currentUser.photoURL,
+            email: currentUser.email,
           },
-          [combinedId + ".date"]: serverTimestamp(),
+          [targetCombinedId + ".date"]: serverTimestamp(),
         });
       }
     } catch (err) {}
