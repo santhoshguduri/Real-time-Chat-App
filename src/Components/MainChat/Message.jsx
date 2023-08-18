@@ -35,7 +35,7 @@ export const Message = ({ message }) => {
           src={
             message.senderId === currentUser.uid
               ? currentUser.photoURL
-              : data.user.photoURL
+              : data.userInfo.photoURL
           }
           alt=""
         />

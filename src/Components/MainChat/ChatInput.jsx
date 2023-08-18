@@ -65,7 +65,7 @@ export const ChatInput = () => {
       [data.chatId + ".date"]: serverTimestamp(),
     });
 
-    await updateDoc(doc(db, "userChats", data.user.uid), {
+    await updateDoc(doc(db, "userChats", data.userInfo.uid), {
       [data.chatId + ".lastMessage"]: {
         text,
       },
@@ -96,7 +96,11 @@ export const ChatInput = () => {
         {/* <label htmlFor="file">
           <img src={Img} alt="" />
         </label> */}
-        <button disabled={!text} className={`sendBtn ${!text && 'disabledBtn'}`} onClick={handleSend}>
+        <button
+          disabled={!text}
+          className={`sendBtn ${!text && "disabledBtn"}`}
+          onClick={handleSend}
+        >
           <div>Send</div>
           <SendIcon sx={{ marginLeft: "2px" }} fontSize="small" />
         </button>

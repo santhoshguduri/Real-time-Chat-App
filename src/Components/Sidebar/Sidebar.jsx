@@ -1,4 +1,4 @@
-import { TargetProfile } from "../ProfileInfo/TargetProfile";
+import TargetProfile from "../ProfileInfo/TargetProfile";
 import { Chart } from "react-google-charts";
 import { AnalyticCard } from "./AnalyticCard";
 import Button from "@mui/material/Button";
