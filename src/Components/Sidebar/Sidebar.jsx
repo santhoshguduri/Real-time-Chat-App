@@ -18,10 +18,9 @@ export const Sidebar = () => {
   ];
 
   const handleInvite = () => {
-    navigator.clipboard.writeText(
-      "https://real-time-chat-app-nine.vercel.app/"
-    );
-    alert("Invite link copied!!!");
+    navigator.clipboard
+      .writeText("https://real-time-chat-app-nine.vercel.app/")
+      .then(() => alert("Invite link copied!!!"));
   };
 
   return (
