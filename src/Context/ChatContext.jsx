@@ -15,7 +15,10 @@ export const ChatContextProvider = ({ children }) => {
       case "CHANGE_USER":
         return {
           ...action.payload,
-          chatId: currentUser.uid + action.payload.userInfo.uid,
+          chatId:
+            currentUser.uid > action.payload.userInfo.uid
+              ? currentUser.uid + action.payload.userInfo.uid
+              : action.payload.userInfo.uid + currentUser.uid,
         };
       case "SET_DEFAULT":
         return INITIAL_STATE;
@@ -25,10 +28,10 @@ export const ChatContextProvider = ({ children }) => {
     }
   };
 
-  const [state, dispatch] = useReducer(chatReducer, INITIAL_STATE);
+  const [state, chatDispatch] = useReducer(chatReducer, INITIAL_STATE);
 
   return (
-    <ChatContext.Provider value={{ data: state, dispatch }}>
+    <ChatContext.Provider value={{ data: state, chatDispatch }}>
       {children}
     </ChatContext.Provider>
   );

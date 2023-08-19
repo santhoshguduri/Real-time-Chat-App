@@ -1,11 +1,14 @@
-.input {
-  height: 50px;
+.inputCont {
   background-color: white;
   padding: 10px;
+  border-radius: 8px;
+}
+
+.input {
+  height: 50px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-radius: 8px;
   /* margin: 8px; */
 }
 
@@ -90,10 +93,10 @@
 }
 
 .messageInfo {
-  display: flex;
-  flex-direction: column;
   color: gray;
   font-weight: 300;
+  position: relative;
+  height: 40px;
 }
 
 .messageInfo img {
@@ -101,6 +104,24 @@
   height: 40px;
   border-radius: 50%;
   object-fit: cover;
+}
+
+.messageInfo .statusDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 2px;
+  right: 0;
+  border: 2px solid white;
+}
+
+.messageInfo .active{
+  background-color: rgb(0, 185, 0);
+}
+
+.messageInfo .inActive{
+  background-color: lightgray;
 }
 
 .messageContent {

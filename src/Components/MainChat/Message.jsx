@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import { ChatContext } from "../../Context/ChatContext";
+import { ActiveContext } from "../../Context/ActiveContext";
 
 export const Message = ({ message }) => {
   const { currentUser } = useContext(AuthContext);
   const { data } = useContext(ChatContext);
+  const { status } = useContext(ActiveContext);
   const [messageTime, setMessageTime] = useState("");
 
   const ref = useRef();
@@ -39,9 +41,10 @@ export const Message = ({ message }) => {
           }
           alt=""
         />
+        <div className={`statusDot ${message.senderId === currentUser.uid ? (status.currentUserActive ? 'active' : 'inActive') : (status.targetUserActive ? 'active' : 'inActive')}`}></div>
       </div>
       <div className="messageContent">
-        <p>{message.text}</p>
+        {message.text && <p>{message.text}</p>}
         {message.img && <img src={message.img} alt="" />}
         <span>{messageTime}</span>
       </div>

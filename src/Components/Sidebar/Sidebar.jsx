@@ -17,6 +17,13 @@ export const Sidebar = () => {
     ["Sun", 5.45, "#0f4cff"],
   ];
 
+  const handleInvite = () => {
+    navigator.clipboard.writeText(
+      "https://real-time-chat-app-nine.vercel.app/"
+    );
+    alert("Invite link copied!!!");
+  };
+
   return (
     <>
       <div>
@@ -68,6 +75,7 @@ export const Sidebar = () => {
             fontSize: "small",
             textTransform: "none",
           }}
+          onClick={() => handleInvite()}
         >
           Copy link
           <InsertLinkOutlinedIcon fontSize="small" sx={{ marginLeft: "4px" }} />
