@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-// import Img from "../img/img.png";
 import AttachFileIcon from "@mui/icons-material/AttachFileOutlined";
 import SendIcon from "@mui/icons-material/Send";
 import { AuthContext } from "../../Context/AuthContext";
@@ -28,11 +27,12 @@ export const ChatInput = () => {
       const storageRef = ref(storage, uuid());
 
       const uploadTask = uploadBytesResumable(storageRef, img);
+      setImg(null);
 
-      uploadTask.on(
-        (error) => {
-          //TODO:Handle Error
-        },
+      uploadTask.then(
+        // (error) => {
+        //   //TODO:Handle Error
+        // },
         () => {
           getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
             await updateDoc(doc(db, "chats", data.chatId), {
@@ -73,37 +73,48 @@ export const ChatInput = () => {
     });
 
     setText("");
-    setImg(null);
   };
+
+  const handleSelectFile = () => {
+    document.getElementById("file").click();
+  };
+
   return (
-    <div className="input">
-      <AttachFileIcon />
-      <InputEmoji
-        value={text}
-        onChange={(e) => setText(e)}
-        cleanOnEnter
-        placeholder="Enter message here"
-        onEnter={handleSend}
-        borderRadius="4px"
-      />
-      <div className="send">
-        <input
-          type="file"
-          style={{ display: "none" }}
-          id="file"
-          onChange={(e) => setImg(e.target.files[0])}
+    <div className="inputCont">
+      {img && <div>Selected File: {img.name}</div>}
+      <div className="input">
+        <AttachFileIcon
+          sx={{ cursor: "pointer" }}
+          onClick={() => handleSelectFile()}
         />
-        {/* <label htmlFor="file">
-          <img src={Img} alt="" />
+        <InputEmoji
+          value={text}
+          onChange={(e) => setText(e)}
+          cleanOnEnter
+          placeholder="Enter message here"
+          onEnter={() => handleSend()}
+          borderRadius="4px"
+        />
+        <div className="send">
+          <input
+            type="file"
+            style={{ display: "none" }}
+            id="file"
+            accept="image/png, image/gif, image/jpeg"
+            onChange={(e) => setImg(e.target.files[0])}
+          />
+          {/* <label htmlFor="file">
+          <img src={img} alt="" />
         </label> */}
-        <button
-          disabled={!text}
-          className={`sendBtn ${!text && "disabledBtn"}`}
-          onClick={handleSend}
-        >
-          <div>Send</div>
-          <SendIcon sx={{ marginLeft: "2px" }} fontSize="small" />
-        </button>
+          <button
+            disabled={!text && !img}
+            className={`sendBtn ${!text && !img && "disabledBtn"}`}
+            onClick={() => handleSend()}
+          >
+            <div>Send</div>
+            <SendIcon sx={{ marginLeft: "2px" }} fontSize="small" />
+          </button>
+        </div>
       </div>
     </div>
   );

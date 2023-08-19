@@ -82,6 +82,7 @@ export default function Signup() {
           displayName: `${user.firstName} ${user.lastName}`,
           email: user.email,
           photoURL: downloadURL,
+          online: true,
         });
 
         await setDoc(doc(db, "userChats", createRes.user.uid), {});

@@ -5,13 +5,16 @@ import MenuItem from "@mui/material/MenuItem";
 import { useContext } from "react";
 import SettingsIcon from "@mui/icons-material/SettingsOutlined";
 import { AuthContext } from "../../Context/AuthContext";
+import { ActiveContext } from "../../Context/ActiveContext";
 import { Toggle } from "./Toggle";
 import { signOut } from "firebase/auth";
-import { auth } from "../../firebase";
+import { auth, db } from "../../firebase";
+import { doc, updateDoc } from "firebase/firestore";
 import "./styles.css";
 
 export const ProfileInfo = () => {
   const { currentUser } = useContext(AuthContext);
+  const { status } = useContext(ActiveContext);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -19,6 +22,12 @@ export const ProfileInfo = () => {
   };
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleOnlineStatus = (status) => {
+    updateDoc(doc(db, "users", currentUser.uid), {
+      online: status,
+    });
   };
 
   return (
@@ -44,7 +53,7 @@ export const ProfileInfo = () => {
             open={open}
             onClose={handleClose}
             MenuListProps={{
-              "aria-labelledby": "basic-button"
+              "aria-labelledby": "basic-button",
             }}
           >
             <MenuItem onClick={() => signOut(auth)}>Logout</MenuItem>
@@ -52,7 +61,10 @@ export const ProfileInfo = () => {
         </div>
         <div className="profileRole">{`Senior Software Developer`}</div>
         <div className="statusWrapper">
-          <Toggle />
+          <Toggle
+            status={status.currentUserActive}
+            onToggle={(val) => handleOnlineStatus(val)}
+          />
           Active
         </div>
       </div>

@@ -2,6 +2,7 @@ import { doc, onSnapshot } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Context/AuthContext";
 import { ChatContext } from "../../Context/ChatContext";
+import { ActiveContext } from "../../Context/ActiveContext";
 import { db } from "../../firebase";
 import { ProfileInfo } from "../ProfileInfo/ProfileInfo";
 import { SearchUser } from "./SearchUser";
@@ -20,7 +21,8 @@ export const Submenu = () => {
   const [loading, setLoading] = useState(false);
 
   const { currentUser } = useContext(AuthContext);
-  const { dispatch } = useContext(ChatContext);
+  const { chatDispatch } = useContext(ChatContext);
+  const { statusDispatch } = useContext(ActiveContext);
 
   useEffect(() => {
     const getChats = () => {
@@ -48,8 +50,42 @@ export const Submenu = () => {
     currentUser.uid && getChats();
   }, [currentUser.uid]);
 
+  useEffect(() => {
+    const getOnlineStatus = () => {
+      const unsub = onSnapshot(doc(db, "users", currentUser.uid), (doc) => {
+        statusDispatch({
+          type: "CHANGE_CURRENT_ACTIVE",
+          payload: doc.data().online,
+        });
+      });
+
+      return () => {
+        unsub();
+      };
+    };
+
+    currentUser.uid && getOnlineStatus();
+  }, []);
+
+  useEffect(() => {
+    const getOnlineStatus = () => {
+      const unsub = onSnapshot(doc(db, "users", selectedChat), (doc) => {
+        statusDispatch({
+          type: "CHANGE_TARGET_ACTIVE",
+          payload: doc.data().online,
+        });
+      });
+
+      return () => {
+        unsub();
+      };
+    };
+
+    selectedChat && getOnlineStatus();
+  }, [selectedChat]);
+
   const handleSelect = (u) => {
-    dispatch({ type: "CHANGE_USER", payload: u });
+    chatDispatch({ type: "CHANGE_USER", payload: u });
     setSelectedChat(u.userInfo.uid);
   };
 
@@ -137,7 +173,7 @@ export const Submenu = () => {
               </div>
             </div>
           ))}
-        </div> 
+        </div>
       )}
     </div>
   );

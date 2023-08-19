@@ -56,13 +56,16 @@ export const SearchUser = () => {
   };
 
   const handleSelect = async () => {
-    const combinedId = currentUser.uid + user.uid;
-    const targetCombinedId = user.uid + currentUser.uid;
+    const combinedId =
+      currentUser.uid > user.uid
+        ? currentUser.uid + user.uid
+        : user.uid + currentUser.uid;
+    //const targetCombinedId = user.uid + currentUser.uid;
     try {
       const res = await getDoc(doc(db, "chats", combinedId));
 
       if (!res.exists()) {
-        await setDoc(doc(db, "chats", combinedId), { messages: [] });
+        await setDoc(doc(db, "chats", combinedId), { online: true, messages: [] });
 
         await updateDoc(doc(db, "userChats", currentUser.uid), {
           [combinedId + ".userInfo"]: {
@@ -75,13 +78,13 @@ export const SearchUser = () => {
         });
 
         await updateDoc(doc(db, "userChats", user.uid), {
-          [targetCombinedId + ".userInfo"]: {
+          [combinedId + ".userInfo"]: {
             uid: currentUser.uid,
             displayName: currentUser.displayName,
             photoURL: currentUser.photoURL,
             email: currentUser.email,
           },
-          [targetCombinedId + ".date"]: serverTimestamp(),
+          [combinedId + ".date"]: serverTimestamp(),
         });
       }
     } catch (err) {}
