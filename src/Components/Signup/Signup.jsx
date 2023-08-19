@@ -88,7 +88,8 @@ export default function Signup() {
         await setDoc(doc(db, "userChats", createRes.user.uid), {});
 
         navigate("/");
-      });
+      })
+      .catch(() => setLoading(false));
   };
 
   return (
