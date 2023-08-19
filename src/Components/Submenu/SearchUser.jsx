@@ -13,6 +13,8 @@ import {
 import { db } from "../../firebase";
 import { AuthContext } from "../../Context/AuthContext";
 import Menu from "@mui/material/Menu";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import MenuItem from "@mui/material/MenuItem";
 import "./styles.css";
 
@@ -25,8 +27,9 @@ export const SearchUser = () => {
 
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const handleClick = (event) => {
+  const handleSearchTextChange = (event) => {
     setAnchorEl(event.currentTarget);
+    setUsername(event.target.value);
   };
   const handleClose = () => {
     setAnchorEl(null);
@@ -35,7 +38,7 @@ export const SearchUser = () => {
   const handleSearch = async () => {
     const q = query(
       collection(db, "users"),
-      where("displayName", "==", username)
+      where("displayNameInsensitive", "==", username.toUpperCase())
     );
 
     try {
@@ -50,9 +53,12 @@ export const SearchUser = () => {
 
   const handleKey = (e) => {
     if (e.code === "Enter") {
-      handleClick(e);
-      handleSearch();
+      handleSearchMenu(e);
     }
+  };
+
+  const handleSearchMenu = (ev) => {
+    handleSearch();
   };
 
   const handleSelect = async () => {
@@ -65,7 +71,10 @@ export const SearchUser = () => {
       const res = await getDoc(doc(db, "chats", combinedId));
 
       if (!res.exists()) {
-        await setDoc(doc(db, "chats", combinedId), { online: true, messages: [] });
+        await setDoc(doc(db, "chats", combinedId), {
+          online: true,
+          messages: [],
+        });
 
         await updateDoc(doc(db, "userChats", currentUser.uid), {
           [combinedId + ".userInfo"]: {
@@ -96,13 +105,31 @@ export const SearchUser = () => {
   return (
     <div className="search">
       <div className="searchForm">
-        <input
+        <OutlinedInput
+          id="outlined-adornment-weight"
+          endAdornment={
+            <SearchOutlinedIcon
+              sx={{ cursor: "pointer" }}
+              onClick={handleSearchMenu}
+              fontSize="small"
+            />
+          }
+          aria-describedby="outlined-weight-helper-text"
+          placeholder="Find a user"
+          onKeyDown={handleKey}
+          onChange={(e) => handleSearchTextChange(e)}
+          value={username}
+          inputProps={{
+            "aria-label": "weight",
+          }}
+        />
+        {/* <input
           type="text"
           placeholder="Find a user"
           onKeyDown={handleKey}
           onChange={(e) => setUsername(e.target.value)}
           value={username}
-        />
+        /> */}
         {user && (
           <Menu
             id="basic-menu"
