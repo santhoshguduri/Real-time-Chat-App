@@ -80,6 +80,7 @@ export default function Signup() {
         await setDoc(doc(db, "users", createRes.user.uid), {
           uid: createRes.user.uid,
           displayName: `${user.firstName} ${user.lastName}`,
+          displayNameInsensitive: `${user.firstName.toUpperCase()} ${user.lastName.toUpperCase()}`,
           email: user.email,
           photoURL: downloadURL,
           online: true,
@@ -158,6 +159,7 @@ export default function Signup() {
                 type="file"
                 name={`picture`}
                 onChange={handleFileChange}
+                accept="image/png, image/gif, image/jpeg"
                 hidden
               />
               <label>{"Upload Profile Image"}</label>
