@@ -37,7 +37,10 @@ export default function Login() {
     setLoading(true);
     signInWithEmailAndPassword(auth, email, password)
       .then(() => navigate("/"))
-      .catch((err) => setError(err));
+      .catch((err) => {
+        setLoading(false);
+        setError(err);
+      });
   };
 
   return (
@@ -89,7 +92,7 @@ export default function Login() {
             Login
           </LoadingButton>
         </div>
-        {error && <div className="loginError">{error.code}</div>}
+        {error && <div className="loginError">{error.code.split("/")[1]}</div>}
         <div>
           Dont have an account? <a href="/signup">Register</a> here
         </div>
