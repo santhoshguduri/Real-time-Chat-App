@@ -6,7 +6,7 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import "./styles.css";
 
 export const MainChat = (props) => {
-  const { data, dispatch } = useContext(ChatContext);
+  const { data, chatDispatch } = useContext(ChatContext);
 
   // useEffect(()=>{
 
@@ -17,7 +17,7 @@ export const MainChat = (props) => {
       {props.hide && (
         <div
           className="backNavigationBtn"
-          onClick={() => dispatch({ type: "SET_DEFAULT" })}
+          onClick={() => chatDispatch({ type: "SET_DEFAULT" })}
         >
           <KeyboardBackspaceIcon
             sx={{ marginRight: "16px" }}
